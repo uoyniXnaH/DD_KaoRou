@@ -637,6 +637,8 @@ class MainWindow(QMainWindow):  # Main window
         decodeMenu = self.menuBar().addMenu('&输出')
         decodeAction = QAction(QIcon.fromTheme('document-open'), '&输出字幕及视频', self, triggered=self.decode)
         decodeMenu.addAction(decodeAction)
+        srtAction = QAction(QIcon.fromTheme('document-open'), '&导出SRT字幕文件', self, triggered=self.srt)
+        decodeMenu.addAction(srtAction)
 
         self.volSlider = Slider()
         self.volSlider.setOrientation(Qt.Horizontal)
@@ -934,6 +936,9 @@ class MainWindow(QMainWindow):  # Main window
         self.videoDecoder.setDefault(self.videoPath, self.videoWidth, self.videoHeight, self.duration, self.bitrate, self.fps, self.subtitleDict)
         self.videoDecoder.hide()
         self.videoDecoder.show()
+
+    def srt(self):
+        self.releaseKeyboard()
 
     def mediaPlay(self):
         if self.playStatus:
