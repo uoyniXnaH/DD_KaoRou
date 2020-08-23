@@ -13,6 +13,7 @@ from PySide2.QtCore import Qt, QTimer, QEvent, QPoint, Signal, QSizeF, QUrl
 from utils.youtube_downloader import YoutubeDnld
 from utils.subtitle import exportSubtitle
 from utils.videoDecoder import VideoDecoder
+from utils.exportTimeMark import ExportSrt
 from utils.separate_audio import Separate
 from utils.assSelect import assSelect
 from utils.asyncTable import asyncTable, refillVerticalLabel
@@ -212,6 +213,7 @@ class MainWindow(QMainWindow):  # Main window
         self.dnldWindow = YoutubeDnld()
         self.exportWindow = exportSubtitle()
         self.videoDecoder = VideoDecoder()
+        self.exportSrt = ExportSrt()
         self.exportWindow.exportArgs.connect(self.exportSubtitle)
         self.stack = QStackedWidget()
         self.stack.setFixedWidth(1300)
@@ -637,8 +639,9 @@ class MainWindow(QMainWindow):  # Main window
         decodeMenu = self.menuBar().addMenu('&输出')
         decodeAction = QAction(QIcon.fromTheme('document-open'), '&输出字幕及视频', self, triggered=self.decode)
         decodeMenu.addAction(decodeAction)
-        srtAction = QAction(QIcon.fromTheme('document-open'), '&导出SRT字幕文件', self, triggered=self.srt)
-        decodeMenu.addAction(srtAction)
+        timeMarkMenu = decodeMenu.addMenu('&仅导出时间轴')
+        srtAction = QAction(QIcon.fromTheme('document-open'), '&导出为.srt格式', self, triggered=self.timeMarkSrt)
+        timeMarkMenu.addAction(srtAction)
 
         self.volSlider = Slider()
         self.volSlider.setOrientation(Qt.Horizontal)
@@ -937,8 +940,9 @@ class MainWindow(QMainWindow):  # Main window
         self.videoDecoder.hide()
         self.videoDecoder.show()
 
-    def srt(self):
+    def timeMarkSrt(self):
         self.releaseKeyboard()
+        self.exportSrt.show()
 
     def mediaPlay(self):
         if self.playStatus:

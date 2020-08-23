@@ -5,6 +5,7 @@ import sys, multiprocessing
 from PySide2.QtWidgets import QApplication, QSplashScreen
 from PySide2.QtGui import QFont, QPixmap
 from utils.main_ui import MainWindow
+from utils.exportTimeMark import ExportSrt
 
 
 if __name__ == '__main__':
@@ -22,5 +23,6 @@ if __name__ == '__main__':
     splash.show()
     mainWindow = MainWindow()
     mainWindow.show()
+
     splash.finish(mainWindow)
     sys.exit(app.exec_())
