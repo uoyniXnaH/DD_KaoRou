@@ -942,6 +942,7 @@ class MainWindow(QMainWindow):  # Main window
 
     def timeMarkSrt(self):
         self.releaseKeyboard()
+        self.exportSrt.setDefault(self.autoSub, self.duration)
         self.exportSrt.show()
 
     def mediaPlay(self):

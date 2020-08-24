@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys, multiprocessing
+import qdarkstyle
 from PySide2.QtWidgets import QApplication, QSplashScreen
 from PySide2.QtGui import QFont, QPixmap
 from utils.main_ui import MainWindow
@@ -14,10 +15,11 @@ if __name__ == '__main__':
     try:
         with open('utils/qdark.qss', 'r') as f:
             qss = f.read()
-    except:
+    except: 
         print('警告！找不到QSS文件！请从github项目地址下载完整文件。')
     app = QApplication(sys.argv)
-    app.setStyleSheet(qss)
+    #app.setStyleSheet(qss)
+    app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyside2'))
     app.setFont(QFont('微软雅黑', 9))
     splash = QSplashScreen(QPixmap(r'utils\splash.jpg'))
     splash.show()
